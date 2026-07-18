@@ -1,0 +1,13 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "name": "express",
+      "version": "4.18.2"
+    },
+    {
+      "name": "lodash",
+      "version": "4.17.21"
+    }
+  ]
+}
