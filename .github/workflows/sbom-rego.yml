@@ -1,0 +1,43 @@
+name: SBOM Policy Check
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  sbom-policy-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Conftest
+        run: |
+          wget https://github.com/open-policy-agent/conftest/releases/latest/download/conftest_Linux_x86_64.tar.gz
+          tar xzf conftest_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin/
+
+      - name: Verify Conftest installation
+        run: conftest --version
+
+      - name: Verify SBOM file exists
+        run: |
+          if [ ! -f examples/sbom.json ]; then
+            echo "❌ SBOM file not found!"
+            exit 1
+          fi
+
+      - name: Run SBOM Policy
+        run: |
+          conftest test examples/sbom.json \
+            --policy policies \
+            --parser json
+
+      - name: Success
+        if: success()
+        run: echo "✅ SBOM policy validation passed."
