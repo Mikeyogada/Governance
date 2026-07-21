@@ -4,6 +4,7 @@ import sys
 from datetime import datetime, timezone
 
 from .schema import SupplyChainEvent
+from ..routing.router import route
 
 def emit (event_name, status="success", metadata=None):
     """
@@ -25,6 +26,7 @@ def emit (event_name, status="success", metadata=None):
     )
     print ("==============Event Details=====================")
     print(json.dumps(event.__dict__, indent=2))  # Emit the event as a JSON object to the console
+    return event
 
 if __name__ == "__main__":
 
@@ -41,11 +43,18 @@ if __name__ == "__main__":
         metadata = json.loads(sys.argv[3])
 
 
-    emit(
-        sys.argv[1],
-        sys.argv[2] if len(sys.argv) > 2 else "success",
+    #emit(
+    #    sys.argv[1],
+    #    sys.argv[2] if len(sys.argv) > 2 else "success",
+    #    metadata=metadata,
+    #)
+    event = emit(
+        event_name=sys.argv[1],
+        status=sys.argv[2] if len(sys.argv) > 2 else "success",
         metadata=metadata,
     )
+
+    route(event)
 
     print ("====================Telemetry emitter completed=====================")
 
