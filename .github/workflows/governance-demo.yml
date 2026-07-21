@@ -1,36 +1,39 @@
-name: Governance Demo
+name: Continuous Governance
 
 on:
   push:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
 jobs:
-    telemetry:
-        runs-on: ubuntu-latest
+  governance:
+    runs-on: ubuntu-latest
 
-        steps:
-        - name: Checkout repository
-          uses: actions/checkout@v4
+    permissions:
+      contents: read
 
-        - name: Set up Python
-          uses: actions/setup-python@v4
-          with:
-            python-version: '3.12'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: Install dependencies
-          run: |
-            pip install -r requirements.txt
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-        - name: Emit telemetry event
-          run: |
-            python telemetry/emitter.py sc.pipeline.started 
-            #this will emit a telemetry event indicating that the pipeline has started. You can replace "sc.pipeline.started" with any other event name that you want to emit.
-            
-        - name: Pipeline completed
-          if: always()
-          run: |
-            python telemetry/emitter.py sc.pipeline.completed 
-            #this will emit a telemetry event indicating that the pipeline has completed. You can replace "sc.pipeline.completed" with any other event name that you want to emit.
+      - name: Emit Pipeline Started
+        run: |
+          python -m telemetry.emitter sc.pipeline.started
 
-#test the emitter through automatic workflow runs
+      # Future: Dependency Scan
+      # Future: SBOM Generation
+      # Future: Policy Checks
+
+      - name: Emit Pipeline Completed
+        if: always()
+        run: |
+          python -m telemetry.emitter sc.pipeline.completed
