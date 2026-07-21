@@ -1,0 +1,1 @@
+#routing for telemetry events. This module will receive telemetry events from the emitter and route them to the appropriate adapters for processing. The adapters will then send the events to their respective destinations, such as Splunk or SimpleRisk.
