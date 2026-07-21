@@ -1,0 +1,1 @@
+#adapters for both splunk and simplerisk. The send_to_splunk function will send the event to Splunk, while the send_to_simplerisk function will send the event to SimpleRisk. You can implement these functions in their respective adapter files.
