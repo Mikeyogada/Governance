@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-07-21T09:00:00Z",
+  "event": "sc.pipeline.started",
+  "repo": "payments-api",
+  "pipeline": "GitHub Actions",
+  "run_id": "1001",
+  "actor": "developer1",
+  "status": "started",
+  "metadata": {}
+}

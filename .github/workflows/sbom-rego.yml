@@ -30,7 +30,7 @@ jobs:
       - name: Verify SBOM file exists
         run: |
           if [ ! -f examples/sbom.json ]; then
-            echo "❌ SBOM file not found!"
+            echo "SBOM file not found!"
             exit 1
           fi
 
@@ -42,4 +42,4 @@ jobs:
 
       - name: Success
         if: success()
-        run: echo "✅ SBOM policy validation passed."
+        run: echo "SBOM policy validation passed."
