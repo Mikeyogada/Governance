@@ -37,3 +37,14 @@ jobs:
         if: always()
         run: |
           python -m telemetry.emitter sc.pipeline.completed
+
+      - name: Debug Telemetry Package
+        run: |
+          pwd
+          ls -R
+          echo "------ emitter.py ------"
+          cat telemetry/emitter.py
+      
+      - name: Test Python
+        run: |
+           python -c "print('Hello from GitHub Actions')"
