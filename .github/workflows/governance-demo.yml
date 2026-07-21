@@ -24,6 +24,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          
+      - name: Debug Telemetry Package
+        run: |
+          pwd
+          ls -R
+          echo "------ emitter.py ------"
+          cat telemetry/emitter.py
 
       - name: Emit Pipeline Started
         run: |
@@ -38,12 +45,7 @@ jobs:
         run: |
           python -m telemetry.emitter sc.pipeline.completed
 
-      - name: Debug Telemetry Package
-        run: |
-          pwd
-          ls -R
-          echo "------ emitter.py ------"
-          cat telemetry/emitter.py
+      
       
       - name: Test Python
         run: |

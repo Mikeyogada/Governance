@@ -4,7 +4,7 @@ import sys
 from datetime import datetime, timezone
 
 from .schema import SupplyChainEvent
-from ..routing.router import route
+from routing.router import route
 
 def emit (event_name, status="success", metadata=None):
     """
@@ -54,7 +54,9 @@ if __name__ == "__main__":
         metadata=metadata,
     )
 
+    print ("====================Routing event to adapters=====================")
     route(event)
+    print ("====================Routing completed=====================")
 
     print ("====================Telemetry emitter completed=====================")
 
