@@ -9,6 +9,13 @@ on:
     branches:
       - main
 
+permissions: 
+  contents: read
+
+env:
+  SPLUNK_HEC_URL: ${{ secrets.SPLUNK_HEC_URL }}
+  SPLUNK_HEC_TOKEN: ${{ secrets.SPLUNK_HEC_TOKEN }}
+
 jobs:
   governance:
     runs-on: ubuntu-latest
